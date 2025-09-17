@@ -12,6 +12,7 @@ body, html {
   background: #fff0d4;
 }
 
+
 /* Section dasar */
 .section {
   position: absolute;        /* semua section ditumpuk */
@@ -94,6 +95,9 @@ body, html {
 .sc2-5 { top: 70%; left: 20%; width: 25px; animation: twinkle 3s infinite ease-in-out; }
 .sc2-6 { bottom: 5%; right: 2%; width: 150px; animation: flutter 2.7s infinite alternate; }
 
+.home { bottom: 2%;  width: 300px; animation: float 2.7s infinite alternate; }
+.cat { bottom: 2%; left: 10%; width: 100px; animation: flutter 2.7s infinite alternate; }
+
 /* Burung statis di section 2 */
 .burung-static {
   position: absolute;
@@ -138,3 +142,395 @@ body, html {
     opacity: 0; 
   }
 }
+@font-face {
+  font-family: 'Malvides';
+  src: url('./font/Malvides.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Melon Fruit';
+  src: url('./font/MelonFruit.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+h2{
+  font-family: Malvides;
+  color: rgb(168, 0, 71);
+}
+
+h3{
+  font-family: Malvides;
+  color: rgb(168, 0, 71);
+}
+/* Countdown Wrapper */
+.countdown {
+  position: absolute;
+  color: rgb(168, 0, 71);
+  bottom: 40%;
+  left: 50%;              /* tambahin ini */
+  width: 40%;
+  font-family: 'Melon Fruit', sans-serif;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center; /* biar isi flex juga rata tengah */
+  gap: 15px;
+  z-index: 10;
+}
+
+/* Box setiap unit waktu */
+.time-box {
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #d4af37; /* gold elegan */
+  border-radius: 12px;
+  padding: 5px 16px;
+  text-align: center;
+  min-width: 65px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Angka */
+.time-box span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(168, 0, 71);
+}
+
+/* Label kecil */
+.time-box small {
+  font-size: 0.75rem;
+  color: #555;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.title-s3{
+  top: 40%;
+  position: absolute;
+  font-size: 30px;
+}
+
+p{
+  font-family: Malvides;
+ 
+}
+
+.title-surah{
+  top: 10%;
+  position: absolute;
+}
+
+
+/* Judul slide dari kiri */
+.section.active .slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideLeft 1s ease forwards;
+  animation-delay: 0.2s; /* mulai sedikit telat biar smooth */
+}
+
+@keyframes slideLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.quote-arab {
+  top: 15%;
+  position: absolute;
+  width: 90%;
+  opacity: 0;
+  font-size: 1rem;
+  font-family: 'Scheherazade New', serif; /* font arab elegan */
+  text-align: center;
+  margin: 15px auto;
+  line-height: 2;
+
+}
+/* Ayat Arab fade-in */
+.section.active .quote-arab {
+  top: 15%;
+  position: absolute;
+  width: 90%;
+  opacity: 0;
+  font-size: 1rem;
+  font-family: 'Scheherazade New', serif; /* font arab elegan */
+  text-align: center;
+  margin: 15px auto;
+  line-height: 2;
+  direction: rtl;
+  animation: fadeIn 1.5s ease forwards;
+  animation-delay: 1.2s; /* muncul setelah judul selesai */
+}
+
+
+.quote-indo {
+  opacity: 0;
+  font-size: 0.8rem;
+  top: 28%;
+  position: absolute;
+  width: 90%;
+  text-align: center;
+  margin: 10px auto;
+  max-width: 80%;
+  line-height: 1.6;
+
+}
+
+
+.section.active .quote-indo {
+  opacity: 0;
+  font-size: 0.8rem;
+  top: 28%;
+  position: absolute;
+  width: 90%;
+  text-align: center;
+  margin: 10px auto;
+  max-width: 80%;
+  line-height: 1.6;
+  animation: fadeIn 1.5s ease forwards;
+  animation-delay: 2.8s; /* muncul terakhir */
+}
+
+/* Reusable fade-in */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- 3 -> 4 --- */
+@keyframes zoomOutSlideLeft {
+  0% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6) translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeSlideInRight {
+  0% {
+    transform: scale(1.2) translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+/* --- 4 -> 3 --- */
+@keyframes zoomOutSlideRight {
+  0% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6) translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeSlideInLeft {
+  0% {
+    transform: scale(1.2) translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Helper classes */
+.section.anim-out-left {
+  animation: zoomOutSlideLeft 2s ease forwards;
+  z-index: 15;
+}
+
+.section.anim-in-right {
+  animation: fadeSlideInRight 0.8s ease forwards;
+  z-index: 20;
+}
+
+.section.anim-out-right {
+  animation: zoomOutSlideRight 2s ease forwards;
+  z-index: 15;
+}
+
+.section.anim-in-left {
+  animation: fadeSlideInLeft 2s ease forwards;
+  z-index: 20;
+}
+
+.ilyas { bottom: -20px; right: 0%; width: 150px; animation: float 4.5s infinite alternate; }
+.alyya { bottom:-20px; left: 0%; width: 130px; animation: float 4.5s infinite alternate; }
+.love-logo { bottom:13%;  width: 60px; animation: twinkle 3s infinite ease-in-out; }
+
+.bird { top: 5%; left: 5%; width: 80px; animation: flutter 3s infinite alternate; }
+.title-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
+.nama-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
+.detail-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
+.mempelai-pria{top: 20%; position: absolute;}
+.mempelai-wanita{top: 40%; position: absolute;}
+
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #fff0d4;
+  z-index: 9999; /* di atas semua */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.envelope-wrapper {
+  position: relative;
+  width: 220px;
+  height: 180px;
+}
+
+/* umum */
+.envelope {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: auto;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* tertutup */
+.envelope.closed {
+  opacity: 1;
+  z-index: 2;
+  animation: float 3s ease-in-out infinite; /* 🚀 animasi melayang */
+}
+
+/* terbuka */
+.envelope.open {
+  transition-delay: 0.8s;
+  opacity: 0;
+  z-index: 1;
+  transform: scale(0.9);
+}
+
+/* saat intro di klik */
+.intro.open .envelope.closed {
+  opacity: 0;
+  transform: scale(0.9) rotateX(90deg);
+  animation: none; /* stop float */
+}
+
+.intro.open .envelope.open {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: scale(1);
+  /* 🚫 jangan langsung zoomOut di sini, biar JS yang trigger */
+}
+
+.envelope.open.zoom-out {
+  animation: zoomOut 1.2s ease forwards;
+}
+
+
+.open-text {
+  margin-top: 5px;
+  font-family: 'Melon Fruit', sans-serif;
+  font-size: 2rem;
+  color: #333;
+  animation: pulse 1.5s infinite;
+}
+
+.open-text.hide {
+  opacity: 0;
+  transform: scale(1.2);
+  animation: none; /* stop pulse */
+}
+
+/* animasi tambahan */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+
+
+@keyframes zoomOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+
+@keyframes flipOut {
+  0%   { transform: scale(1) rotateX(0); opacity: 1; }
+  100% { transform: scale(0.9) rotateX(90deg); opacity: 0; }
+}
+
+.intro.open .envelope.closed {
+  animation: flipOut 0.8s forwards; /* ganti dari langsung hilang jadi animasi */
+}
+
+.section.temp-hide {
+transition: opacity 0.18s ease !important;
+opacity: 0 !important;
+pointer-events: none;
+z-index: 5;
+}
+
+
+/* Pastikan burung animasi selalu di atas */
+.burung {
+position: fixed;
+left: -200px;
+top: 40%;
+width: 150px;
+opacity: 0;
+transform: scale(0.5);
+z-index: 10000; /* dinaikkan supaya tidak tertutup */
+pointer-events: none;
+}
+
+/* efek kamera zoom ke pintu */
+.section.zoom-into-door {
+  animation: zoomIntoDoor 1.2s forwards ease-in;
+}
+
+@keyframes zoomIntoDoor {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(3); /* makin besar = makin dekat */
+    opacity: 0;
+  }
+}
+
+/* efek masuk section 5 */
+.section.anim-in {
+  animation: fadeIn 0.8s forwards ease-out;
+}
+
