@@ -1,0 +1,140 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  background: #fff0d4;
+}
+
+/* Section dasar */
+.section {
+  position: absolute;        /* semua section ditumpuk */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  opacity: 0;                /* default sembunyi */
+  transition: opacity 2s ease;
+  z-index: 0;
+}
+
+
+.section.active {
+  opacity: 1;                /* section aktif kelihatan */
+  z-index: 10;               /* aktif selalu di depan */
+}
+
+
+
+/* Hero */
+.hero1 {
+  position: relative;
+  width: 60%;
+  height: auto;
+  animation: float 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+/* Ornamen dasar */
+.orn {
+  position: absolute;
+  width: auto;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+/* Animasi umum */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes flutter {
+  0%   { transform: rotate(0deg) translateX(0); }
+  50%  { transform: rotate(5deg) translateX(6px); }
+  100% { transform: rotate(-5deg) translateX(-6px); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+/* === Posisi ornamen section1 === */
+.orn1 { top: 6%; left: 20px; width: 50px; animation: flutter 3s infinite alternate; }
+.orn2 { top: 8%; right: 50%; width: 60px; animation: twinkle 2.5s infinite ease-in-out; }
+.orn3 { top: 7%; right: 3%; width: 120px; animation: float 6s infinite ease-in-out; }
+.orn4 { top: 20%; left: 10%; width: 35px; animation: twinkle 3s infinite ease-in-out; }
+.orn5 { top: 30%; right: 5%; width: 100px; animation: flutter 2.8s infinite alternate; }
+.orn6 { top: 45%; left: 30px; width: 20px; animation: twinkle 3s infinite ease-in-out; }
+.orn7 { top: 55%; left: 20%; width: 40px; animation: float 4.5s infinite alternate; }
+.orn8 { top: 60%; right: 10%; width: 40px; animation: twinkle 3s infinite ease-in-out; }
+.orn9 { bottom: 10%; left: 2%; width: 150px; animation: flutter 2.7s infinite alternate; }
+.orn10 { bottom: 15%; left: 60%; width: 70px; animation: float 4.5s infinite alternate; }
+.orn11 { top: 200px; left: 80px; width: 60px; animation: flutter 3s infinite alternate; }
+.orn12 { bottom: 5%; right: 10%; width: 60px; animation: flutter 3s infinite alternate; }
+
+/* === Ornamen & burung di section2 === */
+.sc2 { top: 6%; left: 25px; width: 30px; animation: flutter 3s infinite alternate; }
+.sc2-2 { top: 30%; left: 70%; width: 60px; animation: twinkle 2.5s infinite ease-in-out; }
+.sc2-3 { top: 40%; left: 10%; width: 30px; animation: twinkle 3s infinite ease-in-out; }
+.sc2-4 { top: 60%; left: 70%; width: 45px; animation: twinkle 3s infinite ease-in-out; }
+.sc2-5 { top: 70%; left: 20%; width: 25px; animation: twinkle 3s infinite ease-in-out; }
+.sc2-6 { bottom: 5%; right: 2%; width: 150px; animation: flutter 2.7s infinite alternate; }
+
+/* Burung statis di section 2 */
+.burung-static {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  display: none; /* hidden dulu, ditampilkan JS */
+  z-index: 5;
+}
+
+/* Burung animasi global */
+.burung {
+  position: fixed;
+  left: -200px;
+  top: 40%;
+  width: 150px;
+  opacity: 0;
+  transform: scale(0.5);
+  z-index: 999;
+  pointer-events: none;
+}
+.burung.enter { animation: birdEnter 2s forwards; }
+.burung.exit { animation: birdExit 1.5s forwards; }
+
+@keyframes birdEnter {
+  0% { left: -200px; opacity: 0; transform: scale(0.5); }
+  60% { left: 50%; transform: translateX(-50%) scale(4); opacity: 1; }
+  100% { left: 50%; transform: translateX(-50%) scale(4.5); opacity: 1; }
+}
+@keyframes birdExit {
+  0% { 
+    left: 50%; 
+    top: 40%; /* posisi burung animasi sebelum turun */
+    transform: translateX(-50%) scale(4.5); 
+    opacity: 1; 
+  }
+  100% { 
+    left: 50%; 
+    top: 10%; /* posisinya sama dengan burung statis */
+    transform: translateX(-50%) scale(1.5); /* ukuran sama dengan burung statis */
+    opacity: 0; 
+  }
+}
