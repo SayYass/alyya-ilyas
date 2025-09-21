@@ -4,19 +4,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation Debug</title>
+  <title>Ilyas & Alyya Wedding Invitation</title>
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+  <!-- Musik Background -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="./assets/fixsong.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <!-- Tombol Musik -->
+  <button id="music-btn" class="music-btn">🎵</button>
+
   <div id="intro-envelope" class="intro">
-  <div class="envelope-wrapper">
-    <img src="./assets/amplop1.png" alt="envelope closed" class="envelope closed">
-    <img src="./assets/amplop2.png" alt="envelope open" class="envelope open">
+    <h2 class="yth-title">Dengan rasa hormat & bahagia, untuk:</h2>
+    <h2 class="yth" id="nama-undangan"></h2>
+    <div class="envelope-wrapper">
+      <img src="./assets/amplop1.png" alt="envelope closed" class="envelope closed">
+      <img src="./assets/amplop2.png" alt="envelope open" class="envelope open">
+    </div>
+    <p class="open-text">Klik untuk membuka undangan</p>
   </div>
-  <p class="open-text">Klik untuk membuka undangan</p>
-</div>
 
   <div id="sections">
 
@@ -105,15 +117,105 @@
     </section>
 
 
+    <!-- section 6 -->
+    <section class="section section6">
+      <img src="./assets/gunungan.png" alt="gunungan" class="orn gunungan">
+      <h2 class="title-wakad">waktu dan lokasi</h2>
+
+      <div class="akad-resepsi">
+        <div class="akad">
+          <h2 class="akad-title">akad</h2>
+          <h3 class="akad-detail">12:15 - 13:30</h3>
+        </div>
+        <div class="resepsi">
+          <h2 class="resepsi-title">resepsi</h2>
+          <h3 class="resepsi-detail">15:15 - 18:00</h3>
+        </div>
+      </div>
+
+      <h2 class="lokad-title">lokasi acara</h2>
+      <h3 class="lokad-detail">(Kedai Kerasa - Ciledug)</h3>
+      <div class="maps zoom-in">
+         <a href="https://maps.app.goo.gl/UxJc7iricASPEqmy9" target="_blank">
+
+           <iframe
+             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1602370980613!2d106.7090621747508!3d-6.242602493745723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb51954149f9%3A0x6a9a931849ac752b!2sKedai%20KERASA%20-%20Ciledug!5e0!3m2!1sen!2sid!4v1758459722598!5m2!1sen!2sid"
+             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+             referrerpolicy="no-referrer-when-downgrade"></iframe>
+         </a>
+      </div>
+      <h3 class="lokad-some">klik untuk membuka peta/maps</h3>
+
+    </section>
+
+    <!-- section 7 -->
+    <section class="section section7">
+      <h2 class="moment-title">Wedding Moments</h2>
+      <div class="moment-collage">
+        <div class="slot slot1"><img src="./assets/weddmoment/photo1.jpg" alt="moment1"></div>
+        <div class="slot slot2"><img src="./assets/weddmoment/photo2.jpg" alt="moment2"></div>
+        <div class="slot slot3"><img src="./assets/weddmoment/photo3.jpg" alt="moment3"></div>
+        <div class="slot slot4"><img src="./assets/weddmoment/photo4.jpg" alt="moment4"></div>
+        <div class="slot slot5"><img src="./assets/weddmoment/photo5.jpg" alt="moment5"></div>
+      </div>
+    </section>
 
 
+
+    <!-- section 8 -->
+    <!-- section 8 -->
+    <section class="section section8">
+      <h2 class="pesan-title">Pesan & Kesan</h2>
+      <form id="pesanForm" class="pesan-form">
+        <input type="text" id="nama" name="nama" placeholder="Nama kamu..." required />
+        <textarea id="pesan" name="pesan" placeholder="Tulis pesan / doa..." required></textarea>
+        <button type="submit">Kirim</button>
+      </form>
+      <div class="pesan-list" id="pesanList"></div>
+    </section>
+
+    <!-- section 9 -->
+    <section class="section section9">
+      <h2 class="kasih-title">Tali Kasih</h2>
+      <p class="kasih-subtitle">Doa restu Anda adalah hadiah terbaik bagi kami.<br>
+        Namun jika ingin memberikan tali kasih, dapat melalui rekening berikut:</p>
+
+      <div class="rekening-list">
+        <!-- Rekening BCA -->
+        <div class="rekening-item">
+          <img src="./assets/bca.png" alt="BCA" class="bank-logo" />
+          <div class="rek-info">
+            <h3 class="bank-name">BCA</h3>
+            <p class="pemilik">a.n. Muhamad Ilyas Azmi Dewanto</p>
+            <p class="nomor" id="rek-bca">8175253111</p>
+          </div>
+          <button class="copy-btn" data-target="rek-bca">Salin</button>
+        </div>
+
+        <!-- Rekening CIMB Niaga -->
+        <div class="rekening-item">
+          <img src="./assets/cimb.png" alt="CIMB Niaga" class="bank-logo" />
+          <div class="rek-info">
+            <h3 class="bank-name">CIMB Niaga</h3>
+            <p class="pemilik">a.n. Alyya Refi Aneldy</p>
+            <p class="nomor" id="rek-cimb">707076722300</p>
+          </div>
+          <button class="copy-btn" data-target="rek-cimb">Salin</button>
+        </div>
+      </div>
+
+      <div class="thnks">
+        <h4>Dengan Penuh Cinta</h4>
+        <h4>Ilyas & Alyya</h4>
+      </div>
+    </section>
 
   </div>
 
   <!-- Burung animasi global (untuk transisi) -->
   <img src="./assets/burung.png" alt="burung" class="burung" id="bird-anim">
 
-  <script src="script.js"></script>
+  <script src="script.js" type="module"></script>
 </body>
 
 </html>

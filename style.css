@@ -374,7 +374,7 @@ p{
 
 .ilyas { bottom: -20px; right: 0%; width: 150px; animation: float 4.5s infinite alternate; }
 .alyya { bottom:-20px; left: 0%; width: 130px; animation: float 4.5s infinite alternate; }
-.love-logo { bottom:13%;  width: 60px; animation: twinkle 3s infinite ease-in-out; }
+
 
 .bird { top: 5%; left: 5%; width: 80px; animation: flutter 3s infinite alternate; }
 .title-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
@@ -382,6 +382,18 @@ p{
 .detail-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
 .mempelai-pria{top: 20%; position: absolute;}
 .mempelai-wanita{top: 40%; position: absolute;}
+
+.love-logo {
+  bottom: 13%;
+  width: 60px;
+  opacity: 0; /* pastikan tidak terlihat awalnya */
+}
+
+/* Saat direveal */
+.love-logo.show {
+  opacity: 1;
+  animation: twinkle 3s infinite ease-in-out;
+}
 
 
 .reveal-item {
@@ -464,6 +476,36 @@ p{
   animation: pulse 1.5s infinite;
 }
 
+.yth{
+  position: absolute;
+ 
+ top: 25%;
+  font-size: 23px;
+
+  animation: pulse 1.5s infinite;
+}
+
+.yth-title{
+  position: absolute;
+ 
+ top: 20%;
+  font-size: 15px;
+
+  animation: pulse 1.5s infinite;
+}
+
+.yth-title.hide {
+  opacity: 0;
+  transform: scale(1.2);
+  animation: none; /* stop pulse */
+}
+
+.yth.hide {
+  opacity: 0;
+  transform: scale(1.2);
+  animation: none; /* stop pulse */
+}
+
 .open-text.hide {
   opacity: 0;
   transform: scale(1.2);
@@ -534,3 +576,429 @@ pointer-events: none;
   animation: fadeIn 0.8s forwards ease-out;
 }
 
+.section6 {
+  background-color: #faf4e6; /* krem */
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Dancing Script', cursive;
+  color: #9d1c3c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.section6 .gunungan {
+  width: 50px;
+  margin-bottom: 20px;
+  animation: float 5s infinite ease-in-out;
+  top: 3%;
+}
+
+.section6 .title-wakad {
+  top: 19%;
+  font-size: 28px;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeInDown 1s forwards;
+}
+
+.section6 .akad-resepsi {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeInUp 1s 0.6s forwards;
+}
+
+.section6 .akad,
+.section6 .resepsi {
+  flex: 1;
+  text-align: center;
+  transform: scale(0.8);
+  animation: zoomIn 0.8s ease forwards;
+}
+
+.section6 .resepsi {
+  animation-delay: 0.8s;
+}
+
+.section6 .akad-title,
+.section6 .resepsi-title {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.section6 .akad-detail,
+.section6 .resepsi-detail {
+  font-size: 18px;
+  margin: 0;
+}
+
+.section6 .lokad-title {
+  font-size: 22px;
+  margin: 30px 0 10px 0;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards;
+}
+
+.section6 .lokad-detail {
+  font-size: 18px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 1s 1.5s forwards;
+}
+
+.section6 .maps {
+  background-color: #9d1c3c;
+  padding: 6px;                /* lebih tipis biar iframe lega */
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: zoomIn 0.8s 1.8s forwards;
+
+  width: 90%;                  /* biar responsif */
+  max-width: 600px;            /* batas maksimal */
+}
+
+.section6 .maps iframe {
+  border-radius: 8px;
+  width: 100%;                 /* full lebar container */
+  height: 220px;               /* tinggi lebih proporsional */
+  display: block; 
+  pointer-events: none;             /* biar nggak ada celah bawah */
+}
+
+.section6 .maps a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.section6 .lokad-some {
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 5px;
+  opacity: 0;
+  animation: fadeInUp 1s 2.2s forwards;
+}
+
+/* ------------------------
+   KEYFRAMES ANIMASI
+------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+
+/* ------------------------
+   SECTION 7 (Wedding Moments Collage)
+------------------------- */
+.section7 {
+  background-color: #faf4e6;
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Dancing Script', cursive;
+  color: #9d1c3c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;  /* biar padding aman */
+  overflow-x: hidden;      /* cegah geser horizontal */
+}
+
+.section7 .moment-title {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+/* Grid kolase statis */
+.moment-collage {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 120px;
+  gap: 10px;
+  width: 100%;        /* pakai full container */
+  max-width: 800px;   /* batas aman */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.slot {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* posisi unik tiap foto */
+.slot1 { grid-column: span 2; grid-row: span 2; }
+.slot2 { grid-column: span 4; grid-row: span 3; }
+.slot3 { grid-column: span 2; grid-row: span 1; }
+.slot4 { grid-column: span 3; grid-row: span 2; }
+.slot5 { grid-column: span 3; grid-row: span 2; }
+
+/* Responsive: kalau layar kecil auto 2 kolom */
+@media (max-width: 300px) {
+  .moment-collage {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+  }
+  .slot1, .slot2, .slot3, .slot4, .slot5 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+
+/* ------------------------
+   SECTION 8 (Pesan & Kesan)
+------------------------- */
+.section8 {
+  background-color: #faf4e6;
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Dancing Script', cursive;
+  color: #9d1c3c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.section8 .pesan-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Form */
+.pesan-form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+.pesan-form input,
+.pesan-form textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #9d1c3c;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+}
+
+.pesan-form button {
+  background: #9d1c3c;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.pesan-form button:hover {
+  background: #b53054;
+}
+
+/* Daftar Pesan */
+.pesan-list {
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.pesan-item {
+  background: #fff;
+  border: 1px solid #9d1c3c;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: left;
+}
+
+.pesan-item .nama {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #9d1c3c;
+}
+
+.pesan-item .isi {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ------------------------
+   SECTION 9 (Tali Kasih)
+------------------------- */
+.section9 {
+  background-color: #faf4e6;
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Dancing Script', cursive;
+  color: #9d1c3c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.section9 .kasih-title {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.section9 .kasih-subtitle {
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: 30px;
+  max-width: 600px;
+}
+
+/* 👉 diubah jadi grid biar sejajar */
+.rekening-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.rekening-item {
+  background: #fff;
+  border: 1px solid #9d1c3c;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column; /* isi di dalam card tetap ke bawah */
+  align-items: flex-start;
+  gap: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.bank-logo {
+  width: 50px;
+  height: auto;
+}
+
+.rek-info {
+  flex: 1;
+  text-align: left;
+  width: 100%;
+}
+
+.bank-name {
+  font-size: 18px;
+  margin: 0;
+}
+
+.pemilik {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.nomor {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.copy-btn {
+  background: #9d1c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: flex-end;
+}
+
+.copy-btn:hover {
+  background: #b53054;
+}
+
+/* Responsive: layar kecil turun jadi 1 kolom */
+@media (max-width: 300px) {
+  .rekening-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes zoomOutFromDoor {
+  from { transform: scale(3); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.zoom-out-from-door {
+  animation: zoomOutFromDoor 1s forwards ease-out;
+}
+
+h4{
+  font-family: 'Malvides', sans-serif;
+}
+
+.thnks { bottom: 3%; position: absolute; }
+
+
+.music-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #9d1c3c;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+  z-index: 9999;
+  animation: pulse 1.5s infinite;
+}
+.music-btn:hover {
+  background: #b53054;
+}

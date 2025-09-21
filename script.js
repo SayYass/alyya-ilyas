@@ -2,31 +2,31 @@
 // INTRO AMPLOP
 // --------------------
 const intro = document.getElementById("intro-envelope");
-let introActive = true; // 🚀 kunci navigasi selama intro
+let introActive = true;
 
 if (intro) {
   intro.addEventListener("click", (e) => {
     e.stopPropagation();
     e.preventDefault();
 
-    // Step 1: jalankan flipOut pada envelope tertutup
     intro.classList.add("open");
 
-    // Step 2: setelah 800ms, tampilkan envelope terbuka
     setTimeout(() => {
       const openEnv = intro.querySelector(".envelope.open");
       const openText = intro.querySelector(".open-text");
-      if (openEnv) openEnv.style.opacity = "1"; // tampil dulu
+      const yth = intro.querySelector(".yth");
+      const ythtitle = intro.querySelector(".yth-title");
+      if (openEnv) openEnv.style.opacity = "1";
       if (openText) openText.classList.add("hide");
+      if (yth) yth.classList.add("hide")
+        if (ythtitle) ythtitle.classList.add("hide")
     }, 800);
 
-    // Step 3: setelah envelope terbuka tampil, jalankan zoomOut
     setTimeout(() => {
       const openEnv = intro.querySelector(".envelope.open");
       if (openEnv) openEnv.classList.add("zoom-out");
     }, 1200);
 
-    // Step 4: setelah zoomOut selesai, sembunyikan intro
     setTimeout(() => {
       intro.style.opacity = "0";
       setTimeout(() => {
@@ -46,12 +46,10 @@ const sections = document.querySelectorAll(".section");
 let currentSection = 0;
 const loop = false;
 
-// burung animasi & statis
 const bird = document.getElementById("bird-anim");
 const birdStatic = document.querySelector(".burung-static");
 if (birdStatic) birdStatic.style.display = "none";
 
-// tampilkan section pertama (sementara nonaktif karena intro yang handle)
 if (sections[0]) sections[0].classList.add("active");
 
 // --------------------
@@ -62,7 +60,6 @@ function changeSection(index) {
   currentSection = index;
   sections[currentSection].classList.add("active");
 
-  // kalau masuk section 5, auto reveal
   if (sections[currentSection] === section5) {
     revealItems.forEach(item => item?.classList.remove("show"));
     autoRevealSection5();
@@ -104,17 +101,15 @@ function goToSection(index) {
   else if (index >= len) index = loop ? 0 : len - 1;
   if (index === currentSection) return;
 
-  // jika transisi 1 -> 2, mainkan animasi burung
   if (currentSection === 0 && index === 1) {
+    // 1 -> 2 burung
     sections[currentSection].classList.remove("active");
-
     playBirdTransition(() => {
       changeSection(index);
       if (birdStatic) birdStatic.style.display = "block";
     });
-  }
-  // transisi khusus 3 -> 4
-  else if (currentSection === 2 && index === 3) {
+  } else if (currentSection === 2 && index === 3) {
+    // 3 -> 4
     const sec3 = sections[currentSection];
     const sec4 = sections[index];
 
@@ -129,9 +124,8 @@ function goToSection(index) {
       sec4.classList.remove("anim-in-right");
       currentSection = index;
     }, { once: true });
-  }
-  // transisi khusus 4 -> 3
-  else if (currentSection === 3 && index === 2) {
+  } else if (currentSection === 3 && index === 2) {
+    // 4 -> 3
     const sec4 = sections[currentSection];
     const sec3 = sections[index];
 
@@ -146,9 +140,8 @@ function goToSection(index) {
       sec3.classList.remove("anim-in-left");
       currentSection = index;
     }, { once: true });
-  }
-  // transisi khusus 4 -> 5 (zoom pintu)
-  else if (currentSection === 3 && index === 4) {
+  } else if (currentSection === 3 && index === 4) {
+    // 4 -> 5 (zoom masuk pintu)
     const sec4 = sections[currentSection];
     const sec5 = sections[index];
     const door = sec4.querySelector(".home");
@@ -156,10 +149,8 @@ function goToSection(index) {
     if (door) {
       const rect = door.getBoundingClientRect();
       const secRect = sec4.getBoundingClientRect();
-
       const originX = ((rect.left + rect.width / 2) - secRect.left) / secRect.width * 100;
       const originY = ((rect.top + rect.height / 2) - secRect.top) / secRect.height * 100;
-
       sec4.style.transformOrigin = `${originX}% ${originY}%`;
     }
 
@@ -167,23 +158,41 @@ function goToSection(index) {
 
     sec4.addEventListener("animationend", () => {
       sec4.classList.remove("active", "zoom-into-door");
-
-      // tampilkan section 5 dengan animasi masuk
       sec5.classList.add("active", "anim-in");
-
       sec5.addEventListener("animationend", () => {
         sec5.classList.remove("anim-in");
         currentSection = index;
-
-        // pastikan reveal item jalan
         revealItems.forEach(item => item?.classList.remove("show"));
         autoRevealSection5();
       }, { once: true });
     }, { once: true });
-  }
-  // transisi biasa
-  else {
-    setTimeout(() => changeSection(index), 800); // sesuai fade CSS
+  } else if (currentSection === 4 && index === 3) {
+    // 5 -> 4 (zoom keluar pintu)
+    const sec5 = sections[currentSection];
+    const sec4 = sections[index];
+    const door = sec4.querySelector(".home");
+
+    if (door) {
+      const rect = door.getBoundingClientRect();
+      const secRect = sec4.getBoundingClientRect();
+      const originX = ((rect.left + rect.width / 2) - secRect.left) / secRect.width * 100;
+      const originY = ((rect.top + rect.height / 2) - secRect.top) / secRect.height * 100;
+      sec5.style.transformOrigin = `${originX}% ${originY}%`;
+    }
+
+    autoHideSection5(() => {
+      sec5.classList.add("zoom-out-from-door");
+      sec5.addEventListener("animationend", () => {
+        sec5.classList.remove("active", "zoom-out-from-door");
+        sec4.classList.add("active", "anim-in");
+        sec4.addEventListener("animationend", () => {
+          sec4.classList.remove("anim-in");
+          currentSection = index;
+        }, { once: true });
+      }, { once: true });
+    });
+  } else {
+    setTimeout(() => changeSection(index), 800);
   }
 }
 
@@ -194,12 +203,14 @@ let pointerStartX = null, pointerStartY = null;
 
 function onPointerDown(e) {
   if (e.pointerType === "mouse" && e.button !== 0) return;
+  if (e.target.closest("input, textarea, button, form")) return;
   pointerStartX = e.clientX;
   pointerStartY = e.clientY;
 }
 
 function onPointerUp(e) {
-  if (introActive) return; // 🚫 blokir navigasi saat intro
+  if (introActive) return;
+  if (e.target.closest("input, textarea, button, form")) return;
 
   if (pointerStartX === null) return;
   const dx = e.clientX - pointerStartX;
@@ -221,14 +232,14 @@ if (window.PointerEvent) {
 // --------------------
 // COUNTDOWN
 // --------------------
-const targetDate = new Date("2025-10-18T12:15:00").getTime();
+const targetDate = new Date("2025-10-18T00:01:00").getTime();
 
 function updateCountdown() {
   const now = new Date().getTime();
   const distance = targetDate - now;
 
   if (distance < 0) {
-    document.getElementById("countdown").innerHTML = "<p>Acara sudah dimulai 🎉</p>";
+    document.getElementById("countdown").innerHTML = "<p>Tiba di hari acara 🎉</p>";
     return;
   }
 
@@ -242,12 +253,11 @@ function updateCountdown() {
   document.getElementById("minutes").innerText = minutes.toString().padStart(2, "0");
   document.getElementById("seconds").innerText = seconds.toString().padStart(2, "0");
 }
-
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // --------------------
-// SECTION 5 AUTO REVEAL
+// SECTION 5 AUTO REVEAL & HIDE
 // --------------------
 const section5 = document.querySelector(".section5");
 let revealItems = [];
@@ -265,12 +275,143 @@ if (section5) {
 
 function autoRevealSection5() {
   if (!section5.classList.contains("active")) return;
-
   revealItems.forEach((item, i) => {
     if (item) {
-      setTimeout(() => {
-        item.classList.add("show");
-      }, i * 1200);
+      setTimeout(() => item.classList.add("show"), i * 1200);
     }
   });
 }
+
+function autoHideSection5(callback) {
+  if (!section5.classList.contains("active")) {
+    if (typeof callback === "function") callback();
+    return;
+  }
+  revealItems.forEach((item, i) => {
+    if (item) {
+      setTimeout(() => {
+        item.classList.remove("show");
+        if (i === revealItems.length - 1 && typeof callback === "function") {
+          callback();
+        }
+      }, i * 300);
+    }
+  });
+}
+
+// --------------------
+// SECTION 8 PESAN & KESAN (Firebase)
+// --------------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  onChildAdded,
+  query,
+  orderByChild,
+  limitToLast
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHf9CJf8pIEyQCMQWKpi2JfQI_7daUkBA",
+  authDomain: "wedding-3b59b.firebaseapp.com",
+  databaseURL: "https://wedding-3b59b-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "wedding-3b59b",
+  storageBucket: "wedding-3b59b.firebasestorage.app",
+  messagingSenderId: "462669784215",
+  appId: "1:462669784215:web:636b91a06b2f1e108335d2",
+  measurementId: "G-P3E04B52WH"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const form = document.getElementById("pesanForm");
+const pesanList = document.getElementById("pesanList");
+
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nama = document.getElementById("nama").value.trim();
+    const pesan = document.getElementById("pesan").value.trim();
+    if (!nama || !pesan) return;
+
+    const newRef = push(ref(db, "pesan"));
+    set(newRef, { nama, pesan, timestamp: Date.now() }).then(() => {
+      form.reset();
+    });
+  });
+
+  const pesanRef = query(ref(db, "pesan"), orderByChild("timestamp"), limitToLast(50));
+  onChildAdded(pesanRef, (snapshot) => {
+    const data = snapshot.val();
+    const item = document.createElement("div");
+    item.classList.add("pesan-item");
+    item.innerHTML = `
+      <h4 class="nama">${data.nama}</h4>
+      <p class="isi">${data.pesan}</p>
+    `;
+    pesanList.prepend(item);
+  });
+}
+
+// --------------------
+// SECTION 9 TALI KASIH (Copy Rekening)
+// --------------------
+document.querySelectorAll(".copy-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const targetId = btn.getAttribute("data-target");
+    const text = document.getElementById(targetId).innerText;
+
+    navigator.clipboard.writeText(text).then(() => {
+      btn.innerText = "Tersalin ✔";
+      setTimeout(() => btn.innerText = "Salin", 2000);
+    });
+  });
+});
+
+
+   const music = document.getElementById("bg-music");
+const musicBtn = document.getElementById("music-btn");
+
+// tombol toggle manual
+musicBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.innerText = "🔇"; // musik nyala
+  } else {
+    music.pause();
+    musicBtn.innerText = "🎵"; // musik mati
+  }
+});
+
+
+if (intro) {
+  intro.addEventListener("click", () => {
+    music.play().catch(err => console.log("Autoplay dicegah:", err));
+    musicBtn.innerText = "🔇"; // set awal ke nyala
+  }, { once: true });
+}
+
+
+
+    function getNamaFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("nama"); // misal: ?nama=Ilyas
+}
+
+const namaUndanganEl = document.getElementById("nama-undangan");
+const nama = getNamaFromURL();
+
+if (namaUndanganEl) {
+  if (nama) {
+    namaUndanganEl.textContent = `${nama}`;
+  } else {
+    namaUndanganEl.textContent = "Tamu Undangan";
+  }
+}
+
+
