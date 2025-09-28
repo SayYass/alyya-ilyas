@@ -16,10 +16,14 @@ if (intro) {
       const openText = intro.querySelector(".open-text");
       const yth = intro.querySelector(".yth");
       const ythtitle = intro.querySelector(".yth-title");
+      const btnPrev = intro.querySelector(".btn-prev");
+      const btnNext = intro.querySelector(".btn-next");
       if (openEnv) openEnv.style.opacity = "1";
       if (openText) openText.classList.add("hide");
       if (yth) yth.classList.add("hide")
-        if (ythtitle) ythtitle.classList.add("hide")
+      if (ythtitle) ythtitle.classList.add("hide")
+      if (btnPrev) btnPrev.classList.add("hide")
+      if (btnNext) btnNext.classList.add("hide")
     }, 800);
 
     setTimeout(() => {
@@ -374,7 +378,7 @@ document.querySelectorAll(".copy-btn").forEach(btn => {
 });
 
 
-   const music = document.getElementById("bg-music");
+const music = document.getElementById("bg-music");
 const musicBtn = document.getElementById("music-btn");
 
 // tombol toggle manual
@@ -398,7 +402,7 @@ if (intro) {
 
 
 
-    function getNamaFromURL() {
+function getNamaFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("nama"); // misal: ?nama=Ilyas
 }
