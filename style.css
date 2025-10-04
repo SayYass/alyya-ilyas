@@ -525,15 +525,16 @@ p{
 .yth{
   position: absolute;
  
- top: 25%;
-  font-size: 23px;
+ top: 28%;
+  font-size: 1.5rem;
 
   animation: pulse 1.5s infinite;
 }
 
 .yth-title{
   position: absolute;
- 
+  width: 90%;
+  text-align: center;
  top: 20%;
   font-size: 1.5rem;
 

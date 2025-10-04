@@ -20,10 +20,10 @@ if (intro) {
       const btnNext = intro.querySelector(".btn-next");
       if (openEnv) openEnv.style.opacity = "1";
       if (openText) openText.classList.add("hide");
-      if (yth) yth.classList.add("hide")
-      if (ythtitle) ythtitle.classList.add("hide")
-      if (btnPrev) btnPrev.classList.add("hide")
-      if (btnNext) btnNext.classList.add("hide")
+      if (yth) yth.classList.add("hide");
+      if (ythtitle) ythtitle.classList.add("hide");
+      if (btnPrev) btnPrev.classList.add("hide");
+      if (btnNext) btnNext.classList.add("hide");
     }, 800);
 
     setTimeout(() => {
@@ -57,6 +57,13 @@ if (birdStatic) birdStatic.style.display = "none";
 if (sections[0]) sections[0].classList.add("active");
 
 // --------------------
+// FLAG TRANSISI
+// --------------------
+let isTransitioning = false;
+function lockTransition() { isTransitioning = true; }
+function unlockTransition() { isTransitioning = false; }
+
+// --------------------
 // FUNGSI PINDAH SECTION
 // --------------------
 function changeSection(index) {
@@ -67,6 +74,11 @@ function changeSection(index) {
   if (sections[currentSection] === section5) {
     revealItems.forEach(item => item?.classList.remove("show"));
     autoRevealSection5();
+  }
+
+  if (sections[currentSection] === section4) {
+    revealItems4.forEach(item => item?.classList.remove("show"));
+    autoRevealSection4();
   }
 
   console.log("Change section ->", currentSection);
@@ -88,7 +100,6 @@ function playBirdTransition(callback) {
       bird.classList.remove("exit");
       bird.style.display = "none";
       bird.removeEventListener("animationend", onAnimEnd);
-
       if (typeof callback === "function") callback();
     }
   }
@@ -100,10 +111,13 @@ function playBirdTransition(callback) {
 // LOGIC NAVIGASI
 // --------------------
 function goToSection(index) {
+  if (introActive || isTransitioning) return;
   const len = sections.length;
   if (index < 0) index = loop ? len - 1 : 0;
   else if (index >= len) index = loop ? 0 : len - 1;
   if (index === currentSection) return;
+
+  lockTransition();
 
   if (currentSection === 0 && index === 1) {
     // 1 -> 2 burung
@@ -111,7 +125,9 @@ function goToSection(index) {
     playBirdTransition(() => {
       changeSection(index);
       if (birdStatic) birdStatic.style.display = "block";
+      unlockTransition();
     });
+
   } else if (currentSection === 2 && index === 3) {
     // 3 -> 4
     const sec3 = sections[currentSection];
@@ -127,25 +143,12 @@ function goToSection(index) {
     sec4.addEventListener("animationend", () => {
       sec4.classList.remove("anim-in-right");
       currentSection = index;
-    }, { once: true });
-  } else if (currentSection === 3 && index === 2) {
-    // 4 -> 3
-    const sec4 = sections[currentSection];
-    const sec3 = sections[index];
-
-    sec4.classList.add("anim-out-right");
-    sec3.classList.add("active", "anim-in-left");
-
-    sec4.addEventListener("animationend", () => {
-      sec4.classList.remove("active", "anim-out-right");
+      // 🔒 kunci sampai semua elemen section4 muncul
+      autoRevealSection4();
     }, { once: true });
 
-    sec3.addEventListener("animationend", () => {
-      sec3.classList.remove("anim-in-left");
-      currentSection = index;
-    }, { once: true });
   } else if (currentSection === 3 && index === 4) {
-    // 4 -> 5 (zoom masuk pintu)
+    // 4 -> 5
     const sec4 = sections[currentSection];
     const sec5 = sections[index];
     const door = sec4.querySelector(".home");
@@ -167,11 +170,12 @@ function goToSection(index) {
         sec5.classList.remove("anim-in");
         currentSection = index;
         revealItems.forEach(item => item?.classList.remove("show"));
-        autoRevealSection5();
+        autoRevealSection5(() => unlockTransition());
       }, { once: true });
     }, { once: true });
+
   } else if (currentSection === 4 && index === 3) {
-    // 5 -> 4 (zoom keluar pintu)
+    // 5 -> 4
     const sec5 = sections[currentSection];
     const sec4 = sections[index];
     const door = sec4.querySelector(".home");
@@ -192,11 +196,15 @@ function goToSection(index) {
         sec4.addEventListener("animationend", () => {
           sec4.classList.remove("anim-in");
           currentSection = index;
+          autoRevealSection4(); // tunggu section4 masuk semua
         }, { once: true });
       }, { once: true });
     });
+
   } else {
-    setTimeout(() => changeSection(index), 800);
+    // default
+    changeSection(index);
+    setTimeout(() => unlockTransition(), 800);
   }
 }
 
@@ -207,14 +215,14 @@ let pointerStartX = null, pointerStartY = null;
 
 function onPointerDown(e) {
   if (e.pointerType === "mouse" && e.button !== 0) return;
-  if (e.target.closest("input, textarea, button, form")) return;
+  if (e.target.closest("input, textarea, button, form, .maps")) return;
   pointerStartX = e.clientX;
   pointerStartY = e.clientY;
 }
 
 function onPointerUp(e) {
-  if (introActive) return;
-  if (e.target.closest("input, textarea, button, form")) return;
+  if (introActive || isTransitioning) return;
+  if (e.target.closest("input, textarea, button, form, .maps")) return;
 
   if (pointerStartX === null) return;
   const dx = e.clientX - pointerStartX;
@@ -261,6 +269,37 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // --------------------
+// SECTION 4 AUTO REVEAL
+// --------------------
+const section4 = document.querySelector(".section4");
+let revealItems4 = [];
+
+if (section4) {
+  revealItems4 = [
+    section4.querySelector(".title-surah"),
+    section4.querySelector(".quote-arab"),
+    section4.querySelector(".quote-indo"),
+    section4.querySelector(".home"),
+    section4.querySelector(".cat"),
+  ].filter(Boolean);
+}
+
+function autoRevealSection4() {
+  if (!section4.classList.contains("active")) return;
+  lockTransition();
+  revealItems4.forEach((item, i) => {
+    if (item) {
+      setTimeout(() => {
+        item.classList.add("show");
+        if (i === revealItems4.length - 1) {
+          unlockTransition();
+        }
+      }, i * 1000);
+    }
+  });
+}
+
+// --------------------
 // SECTION 5 AUTO REVEAL & HIDE
 // --------------------
 const section5 = document.querySelector(".section5");
@@ -277,11 +316,18 @@ if (section5) {
   ].filter(Boolean);
 }
 
-function autoRevealSection5() {
+function autoRevealSection5(callback) {
   if (!section5.classList.contains("active")) return;
+  lockTransition();
   revealItems.forEach((item, i) => {
     if (item) {
-      setTimeout(() => item.classList.add("show"), i * 1200);
+      setTimeout(() => {
+        item.classList.add("show");
+        if (i === revealItems.length - 1) {
+          unlockTransition();
+          if (typeof callback === "function") callback();
+        }
+      }, i * 1200);
     }
   });
 }
@@ -377,34 +423,35 @@ document.querySelectorAll(".copy-btn").forEach(btn => {
   });
 });
 
-
+// --------------------
+// MUSIC CONTROL
+// --------------------
 const music = document.getElementById("bg-music");
 const musicBtn = document.getElementById("music-btn");
 
-// tombol toggle manual
 musicBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
-    musicBtn.innerText = "🔇"; // musik nyala
+    musicBtn.innerText = "🔇";
   } else {
     music.pause();
-    musicBtn.innerText = "🎵"; // musik mati
+    musicBtn.innerText = "🎵";
   }
 });
-
 
 if (intro) {
   intro.addEventListener("click", () => {
     music.play().catch(err => console.log("Autoplay dicegah:", err));
-    musicBtn.innerText = "🔇"; // set awal ke nyala
+    musicBtn.innerText = "🔇";
   }, { once: true });
 }
 
-
-
+// --------------------
+// NAMA UNDANGAN DARI URL
+// --------------------
 function getNamaFromURL() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("nama"); // misal: ?nama=Ilyas
+  return params.get("nama");
 }
 
 const namaUndanganEl = document.getElementById("nama-undangan");
@@ -417,5 +464,3 @@ if (namaUndanganEl) {
     namaUndanganEl.textContent = "Tamu Undangan";
   }
 }
-
-
