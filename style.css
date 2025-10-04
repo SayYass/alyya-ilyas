@@ -270,7 +270,7 @@ p{
   position: absolute;
   width: 90%;
   opacity: 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: 'Scheherazade New', serif; /* font arab elegan */
   text-align: center;
   margin: 15px auto;
@@ -283,7 +283,7 @@ p{
   position: absolute;
   width: 90%;
   opacity: 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: 'Scheherazade New', serif; /* font arab elegan */
   text-align: center;
   margin: 15px auto;
@@ -310,8 +310,8 @@ p{
 
 .section.active .quote-indo {
   opacity: 0;
-  font-size: 0.8rem;
-  top: 28%;
+  font-size: 1.05rem;
+  top: 30%;
   position: absolute;
   width: 90%;
   text-align: center;
@@ -403,9 +403,9 @@ p{
 .bird { top: 5%; left: 5%; width: 80px; animation: flutter 3s infinite alternate; }
 .title-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
 .nama-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
-.detail-mempelai { top: 5%;  animation: float 3s infinite alternate; position: relative; }
-.mempelai-pria{top: 20%; position: absolute;}
-.mempelai-wanita{top: 40%; position: absolute;}
+.detail-mempelai { top: 5%; font-size: 1.3rem; margin-top: .8rem; animation: float 3s infinite alternate; position: relative; }
+.mempelai-pria{top: 20%; position: absolute; width: 80%;}
+.mempelai-wanita{top: 40%; position: absolute; width: 80%;}
 
 .love-logo {
   bottom: 13%;
@@ -535,7 +535,7 @@ p{
   position: absolute;
  
  top: 20%;
-  font-size: 20px;
+  font-size: 1.5rem;
 
   animation: pulse 1.5s infinite;
 }
@@ -749,7 +749,7 @@ pointer-events: none;
 }
 
 .section6 .lokad-some {
-  font-size: 18px;
+  font-size: 1.4rem;
   font-style: italic;
   margin-top: 10px;
   opacity: 0;
