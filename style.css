@@ -1074,3 +1074,39 @@ h4{
 .music-btn:hover {
   background: #b53054;
 }
+
+
+.section10 {
+  text-align: center;
+
+  padding: 30px 15px;
+}
+
+.hadir-btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.btn-hadir {
+  background: #fff;
+  color: #9d1c3c;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Malvides', sans-serif;
+}
+
+.btn-hadir:hover {
+  background: #f1f1f1;
+}
+
+.hadir-status {
+  margin-top: 15px;
+  font-size: 15px;
+  font-style: italic;
+}

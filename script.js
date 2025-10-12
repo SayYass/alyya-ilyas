@@ -358,6 +358,7 @@ import {
   ref,
   push,
   set,
+  get,               // ✅ tambahkan ini!
   onChildAdded,
   query,
   orderByChild,
@@ -464,3 +465,55 @@ if (namaUndanganEl) {
     namaUndanganEl.textContent = "Tamu Undangan";
   }
 }
+
+
+// --------------------
+// SECTION 10 KONFIRMASI KEHADIRAN
+// --------------------
+const btnHadir = document.querySelectorAll(".btn-hadir");
+const statusEl = document.getElementById("hadir-status");
+
+btnHadir.forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const nama = getNamaFromURL() || "Tamu Undangan";
+    const kehadiran = btn.getAttribute("data-status");
+    const kehadiranRef = ref(db, "kehadiran");
+
+    try {
+      // 🔍 Cari apakah nama sudah pernah mengirim kehadiran
+      const snapshot = await get(kehadiranRef);
+
+      let existingKey = null;
+      snapshot.forEach(child => {
+        const data = child.val();
+        if (data.nama === nama) {
+          existingKey = child.key;
+        }
+      });
+
+      if (existingKey) {
+        // 📝 Update data lama
+        await set(ref(db, `kehadiran/${existingKey}`), {
+          nama,
+          kehadiran,
+          timestamp: Date.now()
+        });
+        statusEl.textContent = `✅ Konfirmasi diperbarui: ${kehadiran}`;
+      } else {
+        // ➕ Tambah baru
+        const newRef = push(kehadiranRef);
+        await set(newRef, {
+          nama,
+          kehadiran,
+          timestamp: Date.now()
+        });
+        statusEl.textContent = `❤️ Terima kasih ${nama}, konfirmasi "${kehadiran}" telah dikirim!`;
+      }
+
+      btnHadir.forEach(b => b.disabled = false); // tetap bisa klik kalau berubah pikiran
+    } catch (err) {
+      console.error("❌ Gagal kirim konfirmasi:", err);
+      statusEl.textContent = "⚠️ Gagal mengirim, coba lagi nanti.";
+    }
+  });
+});
